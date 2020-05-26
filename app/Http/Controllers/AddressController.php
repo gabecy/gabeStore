@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Product;
-use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
-class CartController extends Controller
+use App\Address;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,20 +15,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartItems=Cart::content();
-        return view('cart.index',compact('cartItems'));
+        //
     }
-
-    public function addItem($id)
-    {
-        $product = Product::find($id);
-
-        Cart::add($id,$product->name,1,$product->price,['size'=>'medium']);
-        return back();
-        
-    }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +25,7 @@ class CartController extends Controller
      */
     public function create()
     {
-       
+        //
     }
 
     /**
@@ -47,7 +36,16 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'addressline'=>'required',
+            'city'=>'required',
+            'state'=>'required',
+            'zip'=>'required|integer',
+            'phone'=>'required',
+            ]);
+
+            Auth::user()->address()->create($request->all());
+            
     }
 
     /**
@@ -69,7 +67,7 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-     
+        //
     }
 
     /**
@@ -82,13 +80,6 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        Cart::update($id,['qty'=>$request->qty,"options"=>['size'=>$request->size]]);
-
-        return back();
-
-
-
     }
 
     /**
@@ -99,10 +90,6 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-
-        Cart::remove($id);
-
-        return back();
-
+        //
     }
 }

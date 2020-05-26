@@ -55,7 +55,7 @@
 @yield('content')
 
 
-<footer class="footer navbar-fixed-bottom">
+<footer class="footer">
   <div class="row full-width">
     <div class="small-12 medium-4 large-4 columns">
       <i class="fi-laptop"></i>
