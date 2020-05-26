@@ -1,5 +1,7 @@
 <?php
 
+use TCG\Voyager\Models\Role;
+use TCG\Voyager\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
